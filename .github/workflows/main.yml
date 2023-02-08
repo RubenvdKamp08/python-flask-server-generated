@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: pguyot/arm-runner-action@v2
     - name: Build docker
       run: |
         docker build . -t $REPO_NAME/$IMAGE_NAME
