@@ -16,7 +16,7 @@ jobs:
         version: latest
     - name: Build docker
       run: |
-        docker buildx build . -t $REPO_NAME/$IMAGE_NAME
+        docker buildx build . --platform linux/arm/v7 -t $REPO_NAME/$IMAGE_NAME
     - name: run docker
       run: |
         docker run -d -e 8080:8080 -host=172.17.0.2 $REPO_NAME/$IMAGE_NAME:latest && \
