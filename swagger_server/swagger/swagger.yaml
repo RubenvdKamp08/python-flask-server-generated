@@ -127,6 +127,8 @@ components:
           type: string
           example: DevOps
         grade:
+          maximum: 10
+          minimum: 0
           type: integer
           example: 10
       example:
