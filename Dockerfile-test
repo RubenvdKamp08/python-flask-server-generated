@@ -1,0 +1,18 @@
+FROM python:3.8-alpine
+
+RUN apk add nodejs npm
+RUN npm install --global nodemon
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+COPY requirements.txt .
+
+RUN pip3 install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+EXPOSE 8080
+
+ENTRYPOINT ["nodemon"]
+CMD ["-e", "py", "-x", "python -m swagger_server", "-w", "/usr/src/app/"]
