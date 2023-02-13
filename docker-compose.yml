@@ -3,7 +3,7 @@ services:
   student_service:
     image: rubenvdkamp/student_service:latest
     restart: unless-stopped
-    network_mode: "host"
+    hostname: "172.17.0.2"
     depends_on:
       - mongo
     environment:
