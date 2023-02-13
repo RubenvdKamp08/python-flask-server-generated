@@ -13,10 +13,9 @@ jobs:
     - name: Build docker
       run: |
         docker build . -t $REPO_NAME/$IMAGE_NAME
-    - name: run docker
+    - name: run docker compose
       run: |
-        docker run -d -e 8080:8080 -host=172.17.0.2 $REPO_NAME/$IMAGE_NAME:latest && \
-          docker ps && sleep 5
+        docker compose --verbose up -d
     - name: Run API Tests
       id: run-newman
       uses: anthonyvscode/newman-action@v1
