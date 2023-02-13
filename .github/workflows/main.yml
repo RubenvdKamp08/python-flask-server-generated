@@ -10,13 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-      with:
-        version: latest
     - name: Build docker
       run: |
-        docker buildx build --platform linux/arm/v7 . -t $REPO_NAME/$IMAGE_NAME
+        docker build . -t $REPO_NAME/$IMAGE_NAME
     - name: run docker
       run: |
         docker run -d -e 8080:8080 -host=172.17.0.2 $REPO_NAME/$IMAGE_NAME:latest && \
