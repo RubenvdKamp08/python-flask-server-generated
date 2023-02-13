@@ -3,12 +3,13 @@ services:
   student_service:
     image: rubenvdkamp/student_service:latest
     restart: unless-stopped
+    network_mode: "host"
     depends_on:
       - mongo
     environment:
       MONGO_URI: mongodb://mongo:27017
     ports:
-      - "172.17.0.2:8080:8080"
+      - "8080:8080"
 
   mongo:
     restart: unless-stopped
