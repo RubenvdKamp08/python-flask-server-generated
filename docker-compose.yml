@@ -8,11 +8,10 @@ services:
     environment:
       MONGO_URI: mongodb://mongo:27017
     ports:
-      - "8080:8080"
+      - "172.17.0.2:8080:8080"
 
   mongo:
     restart: unless-stopped
     image: mongo:4
-    platform: linux/arm64/v8
     ports:
       - "27017:27017"
