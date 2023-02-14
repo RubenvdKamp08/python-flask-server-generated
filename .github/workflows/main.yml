@@ -16,6 +16,9 @@ jobs:
     - name: run docker compose
       run: |
         docker compose --verbose up -d
+    - name: run docker ps
+        run: |
+          docker ps
     - name: Run API Tests
       id: run-newman
       uses: anthonyvscode/newman-action@v1
