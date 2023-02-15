@@ -25,6 +25,7 @@ jobs:
       with:
         collection: postman/collection.json
         environment: postman/environment.json
+        verbose: true
         reporters: cli
         iterationCount: 3
 
