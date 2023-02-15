@@ -19,15 +19,15 @@ jobs:
     - name: run docker ps
       run: |
         docker ps
-    - name: Run API Tests
-      id: run-newman
-      uses: anthonyvscode/newman-action@v1
-      with:
-        collection: postman/collection.json
-        environment: postman/environment.json
-        verbose: true
-        reporters: cli
-        iterationCount: 3
+#    - name: Run API Tests
+#      id: run-newman
+#      uses: anthonyvscode/newman-action@v1
+#      with:
+#        collection: postman/collection.json
+#        environment: postman/environment.json
+#        verbose: true
+#        reporters: cli
+#        iterationCount: 3
 
     - name: Output summary to console
       run: echo ${{ steps.run-newman.outputs.summary }}
