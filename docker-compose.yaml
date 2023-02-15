@@ -1,7 +1,7 @@
 version: '3'
 services:
   student_service:
-    build: .
+    image: rubenvdkamp/student_service
     restart: unless-stopped
     depends_on:
       - mongo
