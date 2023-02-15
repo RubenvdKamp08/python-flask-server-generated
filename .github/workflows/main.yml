@@ -35,7 +35,6 @@ jobs:
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
 
-    - name: Build and push multi-arch docker image
+    - name: Push image to docker hub Container Registry
       run: |
-        docker buildx create --name multiarch --driver docker-container --bootstrap --use
-        docker buildx build --platform linux/amd64,linux/arm64 -t $REPO_NAME/$IMAGE_NAME:latest --push .
+          docker push $REPO_NAME/$IMAGE_NAME
