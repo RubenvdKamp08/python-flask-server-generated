@@ -36,8 +36,8 @@ spec:
     spec:
       containers:
       - env:
-#        - name: MONGO_URI
-#          value: mongodb://mongo:27017
+        - name: MONGO_URI
+          value: mongodb://mongo:27017
         image: rubenvdkamp/student_service
         name: service
         imagePullPolicy: Always
