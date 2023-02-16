@@ -1,43 +1,47 @@
 import os
 from pymongo import MongoClient
-from bson.objectid import ObjectId
 
 client = MongoClient(os.environ['MONGO_URI'])
-db = client.local
-collection = db.students
+database = client.local
+student_collection = database.students
 
-id = db.info.find_one()
+# Get the current id counter, otherwise create a counter
+id = database.info.find_one()
 if not id:
-    db.info.insert_one({ 'id_counter': 0 })
+    database.info.insert_one({ 'counter': 0 })
 
+# Get the current id counter and increment this value to make sure this will be unique
 def get_id():
-  id = db.info.find_one()['id_counter'] + 1
-  db.info.update_many({}, { '$set': { 'id_counter': id } })
+  id = database.info.find_one()['counter'] + 1
+  database.info.update_many({}, {'$set': {'counter': id}})
   return id
 
 def add(student=None):
-    res = collection.find_one({ 'first_name': student.first_name, 'last_name': student.last_name })
+    res = student_collection.find_one({ 'first_name': student.first_name, 'last_name': student.last_name })
     if res:
         return 'already exists', 409
 
+    # Add the id to the student_id
     student.student_id = get_id()
+    # Create a dict and add this to the collection
     student_dict = student.to_dict()
-    collection.insert_one(student_dict)
+    student_collection.insert_one(student_dict)
 
     return student.student_id
 
 
 def get_by_id(student_id=None, subject=None):
-    student = collection.find_one({'student_id': student_id})
+    student = student_collection.find_one({'student_id': student_id})
     if not student:
         return 'not found', 404
+    # Delete the document id, because not valuable in response
     del student['_id']
     return student
 
 
 def delete(student_id=None):
-    _student = collection.find_one({'student_id': student_id})
-    if not _student:
+    student = student_collection.find_one({'student_id': student_id})
+    if not student:
         return 'not found', 404
-    collection.delete_one(({'student_id': student_id}))
+    student_collection.delete_one(({'student_id': student_id}))
     return student_id
